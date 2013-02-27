@@ -28,7 +28,7 @@ var Index = (function() {
   //输入框模版
   var inputTmpl = ['<li class="item-wrap">',
     '<div class="input-wrap">',
-    '<div><input type="text" class="input-item" name="input-item" /></div>',
+    '<div><input type="text" class="input-item" name="input-item" value="${name}" /></div>',
     '<div><input type="button" class="submit" value="保存" /><em>或</em><input type="button" class="cancel" value="取消" /></div>',
     '</div>',
     '</li>'].join('');
@@ -36,7 +36,8 @@ var Index = (function() {
   //绑定输入框模版
   var _appendInputItem = function(itemList) {
     _clearAllInput();
-    $.tmpl(inputTmpl, {}).appendTo(itemList);
+    $(itemList).find('.item-wrap').remove();
+    $.tmpl(inputTmpl, {name: ''}).appendTo(itemList);
     _initInputListener();
     _checkShowDefault();
   };
@@ -51,10 +52,12 @@ var Index = (function() {
           _appendShowItem(itemList);
         }
       });
-      $(this).find('.submit').click(function() {
+      $(this).find('.submit').click(function(event) {
+        event.stopPropagation();
         _appendShowItem(itemList);
       });
-      $(this).find('.cancel').click(function() {
+      $(this).find('.cancel').click(function(event) {
+        event.stopPropagation();
         _cancelItemWrap(itemWrap);
       });
     });
@@ -69,14 +72,18 @@ var Index = (function() {
   //展示模版
   var _showTmpl = ['<li class="show-item"><div class="row-fluid">' +
     '<div class="span10 text-left show-item-name">${name}</div>',
-    '<div class="span2 show-item-delete"><a class="delete" href="javascript:{}" onclick="Index.delItem(this)"></a></div>',
+    '<div class="span2 show-item-delete"><a class="delete" href="javascript:{}"></a></div>',
   '</div></li>'].join('');
 
   var _appendShowItem = function(itemList) {
     var name = $(itemList).find('.input-item').first().val();
     if(name && name !== '') {
-      $.tmpl(_showTmpl, {name: name}).appendTo(itemList);
-      $(itemList).find('.item-wrap').remove();
+      var itemWrap = $(itemList).find('.item-wrap');
+      if(itemWrap.size() > 0) {
+        itemWrap.replaceWith($($.tmpl(_showTmpl, {name: name})));
+      } else {
+        $.tmpl(_showTmpl, {name: name}).appendTo(itemList);
+      }
       _appendInputItem(itemList);
     } else {
       $(itemList).remove();
@@ -85,21 +92,40 @@ var Index = (function() {
     _initShowItem();
   };
 
+  var _initDelItem = function() {
+    $('.delete').unbind('click');
+    $('.delete').click(function(event) {
+      event.stopPropagation();
+      var showItem = $(this).parents('.show-item');
+      showItem.remove();
+      _clearAllInput();
+      _checkShowDefault();
+      _initShowItem();
+    });
+  };
+
+  var _initEditItem = function() {
+    $('.show-item-name').unbind('click');
+    $('.show-item-name').click(function(event) {
+      event.stopPropagation();
+      _clearAllInput();
+      var name = $(this).html();
+      $(this).parents('.show-item').replaceWith($($.tmpl(inputTmpl, {name: name})));
+      _initInputListener();
+      _checkShowDefault();
+    });
+  };
+
   var _initShowItem = function() {
     $('.item-list').sortable();
     $('.item-list').disableSelection();
-  };
-
-  var delItem = function(e) {
-    var showItem = $(e).parents('.show-item');
-    showItem.remove();
-    _clearAllInput();
-    _checkShowDefault();
-    _initShowItem();
+    _initEditItem();
+    _initDelItem();
   };
 
   var _initHelp = function() {
-    $('.help').click(function() {
+    $('.help').click(function(event) {
+      event.stopPropagation();
       $('<div></div>')
         .html('正在建设中...')
         .dialog({
@@ -110,7 +136,8 @@ var Index = (function() {
   };
 
   var _initFeed = function() {
-    $('.show-feed').click(function() {
+    $('.show-feed').click(function(event) {
+      event.stopPropagation();
       $('<div></div>').html(['<div>',
           '<textarea style="width:240px;height:90px;line-height:16px;"></textarea>',
         '</div>',
@@ -122,8 +149,9 @@ var Index = (function() {
   };
 
   var init = function() {
-    $('.show-default').click(function() {
-      var itemList = $(this).parent().find('.item-list').first();
+    $('.show-grid').click(function(event) {
+      event.stopPropagation();
+      var itemList = $(this).find('.item-list').first();
       _appendInputItem(itemList);
     });
     _initShowItem();
@@ -132,7 +160,6 @@ var Index = (function() {
   };
 
   return {
-    init: init,
-    delItem: delItem
+    init: init
   };
 }).call(this);
