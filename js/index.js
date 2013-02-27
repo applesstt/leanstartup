@@ -10,10 +10,13 @@ var Index = (function() {
   var _checkShowDefault = function() {
     $('.show-grid').each(function() {
       var showDefault = $(this).find('.show-default');
+      var showTitleInfo = $(this).find('.show-title-info');
       if($(this).find('li').length > 0) {
-        showDefault.css('visibility', 'hidden');
+        showDefault.hide();
+        showTitleInfo.hide();
       } else {
-        showDefault.css('visibility', 'visible');
+        showDefault.show();
+        showTitleInfo.show();
       }
     });
   };
@@ -95,12 +98,37 @@ var Index = (function() {
     _initShowItem();
   };
 
+  var _initHelp = function() {
+    $('.help').click(function() {
+      $('<div></div>')
+        .html('正在建设中...')
+        .dialog({
+          autoOpen: false,
+          title: '帮助'
+        }).dialog('open');
+    })
+  };
+
+  var _initFeed = function() {
+    $('.show-feed').click(function() {
+      $('<div></div>').html(['<div>',
+          '<textarea style="width:240px;height:90px;line-height:16px;"></textarea>',
+        '</div>',
+        '<div><input type="button" value="提交" /></div>'].join('')).dialog({
+          autoOpen: false,
+          title: '发表评论'
+        }).dialog('open');
+    })
+  };
+
   var init = function() {
     $('.show-default').click(function() {
       var itemList = $(this).parent().find('.item-list').first();
       _appendInputItem(itemList);
     });
     _initShowItem();
+    _initHelp();
+    _initFeed();
   };
 
   return {
