@@ -1,0 +1,161 @@
+body {
+  padding-top: 60px;
+}
+
+a {
+  color: #00B7FF;
+  position: relative;
+}
+
+.clearfix:after {
+    content:".";display:block;height:0;clear:both;visibility:hidden;
+}
+.clearfix {
+    display:inline-block;
+}
+* html .clearfix {
+    height:1%;
+}
+.clearfix {
+    display:block;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.block {
+    display: block;
+}
+.show-grid {
+  text-align: center;
+  margin-top: 20px;
+  border: 1px solid #DDD;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.show-grid:hover {
+  background-color: #ecf0fa;
+}
+
+.show-default {
+  font-size: 400%;
+  font-weight: bold;
+  color: #51a351;
+  min-height: 200px;
+  line-height: 200px;
+  text-align: center;
+}
+
+.show-title-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 53px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.show-title-inner {
+    padding: 5px;
+}
+
+.show-title {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.show-title-info {
+    font-size: 12px;
+    color: #CCC;
+    padding-left: 5px;
+}
+
+.item-list {
+  position: absolute;
+  top: 53px;
+  left: 0;
+  width: 100%;
+}
+
+.show-item {
+  padding: 5px;
+}
+
+.input-wrap {
+  padding: 5px;
+}
+
+.input-wrap em {
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 12px;
+}
+
+input.input-item {
+  width: 90%;
+  padding: 0;
+}
+input.submit {
+  padding: 0 2px;
+  font-size: 12px;
+}
+input.cancel {
+  color: #CCC;
+  border: none;
+  background: none;
+  padding: 0 2px;
+  font-size: 12px;
+}
+
+.show-item .show-item-name {
+  cursor: move;
+  min-height: 16px;
+  font-size: 12px;
+}
+.show-item .show-item-delete {
+  min-height: 16px;
+  font-size: 12px;
+}
+.help-wrap {
+    display: none;
+}
+.show-title-wrap:hover .help-wrap {
+    display: block;
+}
+.help {
+    background: url(../img/help.png) no-repeat 50% 50%;
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+.show-feed {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 12px;
+    display: none;
+}
+.show-grid:hover .show-feed {
+    display: block;
+}
+.delete {
+    background: url(../img/delete.gif) no-repeat 50% 50%;
+    width: 10px;
+    height: 14px;
+    display: none;
+}
+.show-item:hover .delete {
+    display: block;
+}
+.show-item:hover .show-item-name {
+    background-color: #FFF;
+}
