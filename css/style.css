@@ -121,7 +121,7 @@ input.cancel {
 .help-wrap {
     display: none;
 }
-.show-title-wrap:hover .help-wrap {
+table.table td:hover .help-wrap {
     display: block;
 }
 .help {
