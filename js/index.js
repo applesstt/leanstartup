@@ -7,6 +7,9 @@
  */
 var Index = (function() {
 
+  /**
+   * 循环的判断每个区块是否展示默认提示信息
+   */
   var _checkShowDefault = function() {
     $('.show-grid').each(function() {
       var showDefault = $(this).find('.show-default');
@@ -21,11 +24,16 @@ var Index = (function() {
     });
   };
 
+  /**
+   * 清楚全部的输入框
+   */
   var _clearAllInput = function() {
     $('.item-wrap').remove();
   };
 
-  //输入框模版
+  /**
+   * 输入框的模版 用于构造输入框片段
+   */
   var inputTmpl = ['<li class="item-wrap">',
     '<div class="input-wrap">',
     '<div><input type="text" class="input-item" name="input-item" value="${name}" /></div>',
@@ -33,7 +41,9 @@ var Index = (function() {
     '</div>',
     '</li>'].join('');
 
-  //绑定输入框模版
+  /**
+   * 增加输入框片段到列表(itemList)
+   */
   var _appendInputItem = function(itemList) {
     _clearAllInput();
     $(itemList).find('.item-wrap').remove();
@@ -42,6 +52,9 @@ var Index = (function() {
     _checkShowDefault();
   };
 
+  /**
+   * 绑定输入框的事件
+   */
   var _initInputListener = function() {
     $('.item-wrap').each(function() {
       var itemWrap = this;
@@ -64,17 +77,25 @@ var Index = (function() {
   };
 
 
+  /**
+   * 点击输入框的取消按钮
+   */
   var _cancelItemWrap = function(itemWrap) {
     $(itemWrap).remove();
     _checkShowDefault();
   };
 
-  //展示模版
+  /**
+   * 通过输入框添加的内容展示模版
+   */
   var _showTmpl = ['<li class="show-item"><div class="row-fluid">' +
     '<div class="span10 text-left show-item-name">${name}</div>',
     '<div class="span2 show-item-delete"><a class="delete" href="javascript:{}"></a></div>',
   '</div></li>'].join('');
 
+  /**
+   * 增加展示片段到列表(itemList)
+   */
   var _appendShowItem = function(itemList) {
     var name = $(itemList).find('.input-item').first().val();
     if(name && name !== '') {
@@ -92,6 +113,9 @@ var Index = (function() {
     _initShowItem();
   };
 
+  /**
+   * 为垃圾桶图标绑定删除事件
+   */
   var _initDelItem = function() {
     $('.delete').unbind('click');
     $('.delete').click(function(event) {
@@ -104,6 +128,9 @@ var Index = (function() {
     });
   };
 
+  /**
+   * 为已有的内容绑定点击事件 点击后转换为编辑状态
+   */
   var _initEditItem = function() {
     $('.show-item-name').unbind('click');
     $('.show-item-name').click(function(event) {
@@ -116,6 +143,9 @@ var Index = (function() {
     });
   };
 
+  /**
+   * 为列表中展示的内容绑定退拽事件 用户可以通过拖拽调整内容的顺序
+   */
   var _initShowItem = function() {
     $('.item-list').sortable();
     $('.item-list').disableSelection();
@@ -123,6 +153,9 @@ var Index = (function() {
     _initDelItem();
   };
 
+  /**
+   * 绑定帮助按钮点击事件
+   */
   var _initHelp = function() {
     $('.help').click(function(event) {
       event.stopPropagation();
@@ -135,6 +168,9 @@ var Index = (function() {
     })
   };
 
+  /**
+   * 绑定评论点击事件
+   */
   var _initFeed = function() {
     $('.show-feed').click(function(event) {
       event.stopPropagation();
@@ -148,6 +184,9 @@ var Index = (function() {
     })
   };
 
+  /**
+   * 初始化页面
+   */
   var init = function() {
     $('.show-grid').click(function(event) {
       event.stopPropagation();
