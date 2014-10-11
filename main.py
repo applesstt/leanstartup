@@ -26,6 +26,8 @@ def pull(name):
 
 @app.route('/push/<string:name>', methods=['POST'])
 def push(name):
+    if not os.path.exists('save'):
+        os.mkdir('save')
     with open(_get_file_path(name), 'w') as fp:
         fp.write(request.form['q'])
     return ''
