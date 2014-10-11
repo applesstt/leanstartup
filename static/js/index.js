@@ -126,6 +126,7 @@ var Index = (function () {
             _clearAllInput();
             _checkShowDefault();
             _initShowItem();
+            _autoSave();
         });
     };
 
@@ -141,6 +142,7 @@ var Index = (function () {
             $(this).parents('.show-item').replaceWith($($.tmpl(inputTmpl, {name: name})));
             _initInputListener();
             _checkShowDefault();
+            _autoSave();
         });
     };
 
@@ -226,8 +228,10 @@ var Index = (function () {
                     for(var j in Object.keys(save[key])){
                         $.tmpl(_showTmpl, {name: save[key][j]}).appendTo(itemList);
                     }
+                    _appendInputItem(itemList);
                 }
                 _checkShowDefault();
+                _initShowItem();
             },
             error: function () {
                 alert('获取存档失败');
