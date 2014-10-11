@@ -1,6 +1,6 @@
 #LeanStartup
 
-##精益画布 前端交互Demo
+##精益画布
 
 * ###这是一个关于精益创业的思维画布Demo
 
@@ -28,10 +28,22 @@
     * 鼠标拖拽 调整内容的排序
 * 发表评论
     * 弹出评论框
+* 自动保存
+    * 每一次编辑会自动保存到服务器上(本地)
+
+
+##开启服务器
+
+1. 安装python3
+2. 安装python3-pip
+3. 安装flask: `pip3 install flask`
+4. 启动: `python3 main.py`
+
+
 
 ##有问题反馈
 
 在使用中有任何问题，欢迎反馈给我，可以用以下联系方式跟我交流
 
-* 邮件(applesstt#gmail.com, 把#换成@)
+* 邮件(applesstt#gmail.com, zhyouns#gamil, 把#换成@)
 * QQ: 20146064
